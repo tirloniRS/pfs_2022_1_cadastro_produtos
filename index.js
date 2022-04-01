@@ -45,6 +45,21 @@ app.post("/api/produtos", (req,res) => {
      
 })
 
+app.delete("/api/produtos/:id", (req, res) => {
+    const id = req.params.id;
+    
+    const indice = listaProdutos.findIndex(
+        (produto) => produto.id == id
+    );
+
+    if (indice < 0) {
+        res.status(404).json({erro: "Produto não encontrado!"});        
+    } else {
+        const produtoDeletado = listaProdutos.splice(indice, 1);
+        res.json(produtoDeletado);                
+    }
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
